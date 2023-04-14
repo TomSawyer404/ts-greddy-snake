@@ -1,3 +1,2 @@
 import "./style/index.less";
-
-console.log("Hello World");
+import * as Food from "./libs/food";
