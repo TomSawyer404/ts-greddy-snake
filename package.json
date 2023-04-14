@@ -4,5 +4,11 @@
   "description": "Greddy Snake game in TypeScript.",
   "main": "index.js",
   "author": "banana_windows <tomsawyer404@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.4",
+    "webpack": "^5.79.0",
+    "webpack-cli": "^5.0.1"
+  }
 }
