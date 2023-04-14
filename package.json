@@ -1,0 +1,8 @@
+{
+  "name": "ts-greddy-snake",
+  "version": "1.0.0",
+  "description": "Greddy Snake game in TypeScript.",
+  "main": "index.js",
+  "author": "banana_windows <tomsawyer404@outlook.com>",
+  "license": "MIT"
+}
