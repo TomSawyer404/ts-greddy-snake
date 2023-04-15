@@ -4,6 +4,7 @@ class Snake {
   private _element: HTMLElement; // 蛇的容器
   private _head: HTMLElement;
   private _body: HTMLCollection; // 蛇的身体（包括蛇头）
+  isLive: boolean = true; // 蛇是否还活着
 
   constructor() {
     const snake = document.getElementById("snake")!;
@@ -44,11 +45,31 @@ class Snake {
   }
 
   // Setters
-  public set X(v: number) {
+  set X(v: number) {
+    if (this.X === v) {
+      return;
+    }
+
+    // X 的合法范围是 [0, 290] 区间
+    if (v < 0 || v > 290) {
+      this.isLive = false;
+      throw new Error("蛇撞墙了!!");
+    }
+
     this._head.style.left = v + "px";
   }
 
-  public set Y(v: number) {
+  set Y(v: number) {
+    if (this.Y === v) {
+      return;
+    }
+
+    // Y 的合法范围是 [0, 290] 区间
+    if (v < 0 || v > 290) {
+      this.isLive = false;
+      throw new Error("蛇撞墙了!!");
+    }
+
     this._head.style.top = v + "px";
   }
 }
