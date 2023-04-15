@@ -21,7 +21,7 @@ class GameControler {
   constructor() {
     this._food = new Food();
     this._snake = new Snake();
-    this._scorePanel = new ScorePanel();
+    this._scorePanel = new ScorePanel(10, 2);
     this._direction = Direction.RIGHT;
 
     this.gameInit();
@@ -38,6 +38,16 @@ class GameControler {
   private keydownHandler(e: KeyboardEvent) {
     const d = this.toDirection(e.key);
     if (d !== Direction.NONE) {
+      if (
+        // 禁止掉头
+        this.snake.body.length > 1 &&
+        ((d === Direction.LEFT && this.direction === Direction.RIGHT) ||
+          (d === Direction.RIGHT && this.direction === Direction.LEFT) ||
+          (d === Direction.UP && this.direction === Direction.DOWN) ||
+          (d === Direction.DOWN && this.direction === Direction.UP))
+      ) {
+        return;
+      }
       this.direction = d;
     }
   }
@@ -68,11 +78,12 @@ class GameControler {
     // 检查蛇是否吃到食物
     this.eatFood(x, y);
 
-    // 检查蛇是否撞墙
+    // 移动蛇头位置并检查蛇是否撞墙
     try {
       this.snake.X = x;
       this.snake.Y = y;
     } catch (error) {
+      this.snake.isLive = false;
       alert((error as Error).message);
     }
 

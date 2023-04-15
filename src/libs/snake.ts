@@ -21,6 +21,30 @@ class Snake {
     this.element.appendChild(newSnakeBody);
   }
 
+  private moveBody() {
+    // 将后边的身体设置到前边身体的位置
+    // 一节一节向前移
+    for (let i = this.body.length - 1; i > 0; i -= 1) {
+      // 获取前边身体的位置
+      let prevX = (this.body[i - 1] as HTMLElement).offsetLeft;
+      let prevY = (this.body[i - 1] as HTMLElement).offsetTop;
+
+      // 将值设置到当前身体上
+      (this.body[i] as HTMLElement).style.left = prevX + "px";
+      (this.body[i] as HTMLElement).style.top = prevY + "px";
+    }
+  }
+
+  private checkHeadAndBody() {
+    // 检查蛇有没有吃到自己身体
+    for (let i = 1; i < this.body.length; i += 1) {
+      const curBody = this.body[i] as HTMLElement;
+      if (this.X === curBody.offsetLeft && this.Y === curBody.offsetTop) {
+        throw new Error("撞到自己啦!!");
+      }
+    }
+  }
+
   // Getters
   get element(): HTMLElement {
     return this._element;
@@ -56,7 +80,10 @@ class Snake {
       throw new Error("蛇撞墙了!!");
     }
 
+    // 更新蛇的身体和蛇头坐标
+    this.moveBody();
     this._head.style.left = v + "px";
+    this.checkHeadAndBody();
   }
 
   set Y(v: number) {
@@ -70,6 +97,9 @@ class Snake {
       throw new Error("蛇撞墙了!!");
     }
 
+    // 更新蛇的身体和蛇头坐标
+    this.moveBody();
     this._head.style.top = v + "px";
+    this.checkHeadAndBody();
   }
 }

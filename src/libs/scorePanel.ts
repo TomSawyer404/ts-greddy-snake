@@ -29,7 +29,7 @@ class ScorePanel {
     this.score += 1;
     this.scoreEle.textContent = `${this.score}`;
 
-    if (this.score % 10 === 0) {
+    if (this.score % this.upScore === 0) {
       this.levelUp();
     }
   }
